@@ -2,6 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+> 📖 **项目总览**：请先阅读 [docs/OVERVIEW.md](docs/OVERVIEW.md)（缘起 / 范式 / 公理 / 数理 / 认知层 / 应用 / 生态）。
+
 从 **19683 格认知空间**出发的三元九爻符号体系：把"符号向量 ↔ 象义"的建模思路迁移到三元（+1/0/−1）九维格，构建可定位、可泛化、可推演、可检索的认知与创作系统。
 
 > 配套开源工具：[sanjiu-apk-builder](https://github.com/q1z2q3-debug/sanjiu-apk-builder) —— 一键生成三元九维诗词分类 APK 的脚手架 + 构建器。
