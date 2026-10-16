@@ -1,6 +1,7 @@
 # 三元九维 · Sanjiu Nine
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![CI symbols](https://github.com/q1z2q3-debug/sanjiu-nine/actions/workflows/symbols.yml/badge.svg)](https://github.com/q1z2q3-debug/sanjiu-nine/actions/workflows/symbols.yml)
 
 > 📖 **项目总览**：请先阅读 [docs/OVERVIEW.md](docs/OVERVIEW.md)（缘起 / 范式 / 公理 / 数理 / 认知层 / 应用 / 生态）。
 
