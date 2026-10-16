@@ -16,8 +16,9 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install test dependencies
-        run: pip install pytest numpy
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt pytest
 
       - name: Run 三元九维符号体系单元测试
         run: python -m pytest tests/ -q
