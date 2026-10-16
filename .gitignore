@@ -33,3 +33,9 @@ project/android/sdk/
 .idea/
 *.iml
 .DS_Store
+
+# 临时工具结果
+.tmp-tool-results/
+
+# 独立开源插件（单独仓库）
+sanjiu-apk-builder/
