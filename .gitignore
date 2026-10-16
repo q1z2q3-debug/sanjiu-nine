@@ -39,3 +39,7 @@ project/android/sdk/
 
 # 独立开源插件（单独仓库）
 sanjiu-apk-builder/
+
+# 大体积卦典完整版（不入 git，改用轻量版 sanjiu_quanji_light.csv / Release 发布）
+trigram/sanjiu_quanji.csv
+trigram/sanjiu_quanji.json
