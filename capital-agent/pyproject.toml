@@ -1,0 +1,20 @@
+[project]
+name = "capital-agent"
+version = "0.1.0"
+description = "Token as Capital: a self-adaptive cognitive agent"
+requires-python = ">=3.10"
+dependencies = [
+    "openai>=1.30.0",
+    "numpy>=1.26.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.scripts]
+capital = "capital_agent.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

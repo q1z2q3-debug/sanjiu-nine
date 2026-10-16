@@ -1,0 +1,7 @@
+# 发布签名配置示例
+# 复制本文件为 gradle.properties 并填入你自己的 keystore 真实路径与密码。
+# 仓库不含任何签名私钥与密码；发布 APK 需自行生成 release.jks。
+RELEASE_STORE_FILE=/absolute/path/to/your/keystore/release.jks
+RELEASE_STORE_PASSWORD=your-store-password
+RELEASE_KEY_ALIAS=release
+RELEASE_KEY_PASSWORD=your-key-password

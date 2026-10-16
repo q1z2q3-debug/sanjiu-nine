@@ -1,0 +1,2 @@
+[console_scripts]
+capital = capital_agent.cli:main
