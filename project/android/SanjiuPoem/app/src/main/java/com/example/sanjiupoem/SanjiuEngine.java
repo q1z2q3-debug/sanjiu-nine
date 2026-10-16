@@ -71,6 +71,29 @@ public class SanjiuEngine {
         return Math.sqrt(s);
     }
 
+    // 解读坐标系：9 爻位 × 三态 → 诗评判定短语（从卦确定性映射，作为解读的出处基座）
+    private static final String[][] COORD = {
+        {"主旨显豁", "主旨中和", "诗旨深隐"},       // 1 显/衡/隐
+        {"情感浓烈", "情感温润", "情感含蓄"},       // 2
+        {"意象具象", "意象虚实相生", "意象虚淡"},   // 3
+        {"白描无典", "用典适中", "用典深重"},       // 4
+        {"音律谐畅", "音律中和", "音律拗涩"},       // 5
+        {"修辞张力外显", "修辞平实", "修辞舒缓"},   // 6
+        {"意脉贯通", "意脉从容", "意脉滞碍"},       // 7
+        {"境界朗照", "境界中正", "境界幽晦"},       // 8
+        {"立意根深", "立意中正", "立意浮薄"},       // 9
+    };
+
+    /** 从卦确定性输出 9 维解读坐标（可复现；与 trigram/interpret.py 的 coordinate 一致）。 */
+    public static String coordinate(int[] g) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 9; i++) {
+            sb.append(AXIS[i]).append("·").append(COORD[i][g[i] + 1]); // -1->0, 0->1, 1->2
+            if (i < 8) sb.append("，");
+        }
+        return sb.toString();
+    }
+
     /** 把卦转成象辞（映射层创作，不触碰公理）。 */
     public static String oracle(int[] g) {
         StringBuilder sb = new StringBuilder();
@@ -85,7 +108,7 @@ public class SanjiuEngine {
 
     // ---------------- 语料与检索 ----------------
     public static class Poem {
-        public String title, author, text, topic;
+        public String title, author, text, topic, interpretation;
         public int age;
         public int[] gua;
     }
@@ -100,6 +123,7 @@ public class SanjiuEngine {
             p.author = o.optString("author");
             p.text = o.optString("text");
             p.topic = o.optString("topic");
+            p.interpretation = o.optString("interpretation");
             p.age = o.optInt("age");
             JSONArray ga = o.optJSONArray("gua");
             p.gua = new int[9];
@@ -133,7 +157,7 @@ public class SanjiuEngine {
 
     // ---------------- 三元原创（创作诗） ----------------
     public static class OrigPoem {
-        public String op, title, text, oracle;
+        public String op, title, text, oracle, interpretation;
         public int age;
         public int[] gua;
     }
@@ -147,6 +171,7 @@ public class SanjiuEngine {
             p.title = o.optString("title");
             p.text = o.optString("text");
             p.oracle = o.optString("oracle");
+            p.interpretation = o.optString("interpretation");
             p.age = o.optInt("age");
             JSONArray ga = o.optJSONArray("gua");
             p.gua = new int[9];

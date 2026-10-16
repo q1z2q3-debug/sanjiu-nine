@@ -22,3 +22,8 @@ jobs:
 
       - name: Run 三元九维符号体系单元测试
         run: python -m pytest tests/ -q
+
+      - name: 生成并校验 19683 卦解读坐标系基线
+        run: |
+          python -c "import sys; sys.path.insert(0,'trigram'); from interpret import coordinate; print('coordinate OK:', coordinate([1,1,1,-1,0,1,1,1,1]))"
+          python trigram/_gen_interpret_baseline.py

@@ -244,8 +244,27 @@ public class MainActivity extends Activity {
         body.setLineSpacing(dp(4), 1.12f);
         body.setPadding(0, dp(10), 0, dp(6));
         card.addView(body);
+        // 正轨专业解读（人类传统诗评语言）
+        if (p.interpretation != null && !p.interpretation.isEmpty()) {
+            card.addView(space(dp(2)));
+            TextView interLabel = new TextView(this);
+            interLabel.setText("解 读");
+            interLabel.setTextSize(12f);
+            interLabel.setTextColor(0xFFFFFFFF);
+            interLabel.setPadding(dp(6), dp(2), dp(6), dp(2));
+            interLabel.setBackground(round(ACCENT, dp(8), 0, 0));
+            card.addView(interLabel);
+            TextView inter = new TextView(this);
+            inter.setText(p.interpretation);
+            inter.setTextSize(13f);
+            inter.setTextColor(INK);
+            inter.setLineSpacing(dp(2), 1.14f);
+            inter.setPadding(0, dp(6), 0, dp(8));
+            card.addView(inter);
+        }
         TextView meta = new TextView(this);
-        meta.setText("创作卦 " + toStr(p.gua) + "\n" + p.oracle);
+        meta.setText("创作卦 " + toStr(p.gua) + "\n" + p.oracle
+                + "\n解读坐标：" + SanjiuEngine.coordinate(p.gua));
         meta.setTextSize(11f);
         meta.setTextColor(GRAY);
         card.addView(meta);
@@ -364,11 +383,31 @@ public class MainActivity extends Activity {
         body.setPadding(0, dp(10), 0, dp(6));
         card.addView(body);
 
+        // 正轨专业导读（人类传统诗评语言）
+        if (p.interpretation != null && !p.interpretation.isEmpty()) {
+            card.addView(space(dp(2)));
+            TextView interLabel = new TextView(this);
+            interLabel.setText("导 读");
+            interLabel.setTextSize(12f);
+            interLabel.setTextColor(0xFFFFFFFF);
+            interLabel.setPadding(dp(6), dp(2), dp(6), dp(2));
+            interLabel.setBackground(round(ACCENT, dp(8), 0, 0));
+            card.addView(interLabel);
+            TextView inter = new TextView(this);
+            inter.setText(p.interpretation);
+            inter.setTextSize(13f);
+            inter.setTextColor(INK);
+            inter.setLineSpacing(dp(2), 1.14f);
+            inter.setPadding(0, dp(6), 0, dp(8));
+            card.addView(inter);
+        }
+
         // 象义 / 距离
         TextView meta = new TextView(this);
         meta.setText("诗卦 " + toStr(p.gua) + " · 距风格卦 "
                 + String.format("%.2f", SanjiuEngine.dist(target, p.gua))
-                + "\n" + SanjiuEngine.oracle(p.gua));
+                + "\n" + SanjiuEngine.oracle(p.gua)
+                + "\n解读坐标：" + SanjiuEngine.coordinate(p.gua));
         meta.setTextSize(11f);
         meta.setTextColor(GRAY);
         card.addView(meta);
