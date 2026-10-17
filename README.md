@@ -1,5 +1,10 @@
 # 三元九维 · Sanjiu Nine
 
+> **三元九维19683认知体系** · 一个可定位、可泛化、可审计的符号认知层
+> 官方主页：https://q1z2q3-debug.github.io/sanjiu-19683/ ｜ 论文：https://zenodo.org/records/23437930 ｜ DOI: 10.5281/zenodo.23437930
+> 关键词：三元九维 · 19683 · 认知体系 · 符号认知层 · 大模型认知层 · Agent · 三值逻辑 · 语义桥 · 邻域泛化
+
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI symbols](https://github.com/q1z2q3-debug/sanjiu-nine/actions/workflows/symbols.yml/badge.svg)](https://github.com/q1z2q3-debug/sanjiu-nine/actions/workflows/symbols.yml)
 
