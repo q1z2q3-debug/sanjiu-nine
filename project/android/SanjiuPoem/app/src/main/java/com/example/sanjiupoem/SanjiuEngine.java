@@ -1,8 +1,11 @@
 package com.example.sanjiupoem;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -186,5 +189,61 @@ public class SanjiuEngine {
         List<OrigPoem> out = new ArrayList<>();
         for (OrigPoem p : all) if (p.age == ageIdx) out.add(p);
         return out;
+    }
+
+    // ---------------- 深度卦典（内嵌精简版） ----------------
+    private static JSONObject QUANJI = null;
+
+    /** 加载 assets/sanjiu_quanji_apk.json（本 App 诗词命中的卦典，完整 19683 见开源仓库）。 */
+    public static void initQuanji(Context ctx) {
+        if (QUANJI != null) return;
+        try {
+            InputStream is = ctx.getAssets().open("sanjiu_quanji_apk.json");
+            java.io.ByteArrayOutputStream b = new java.io.ByteArrayOutputStream();
+            byte[] buf = new byte[8192];
+            int n;
+            while ((n = is.read(buf)) != -1) b.write(buf, 0, n);
+            is.close();
+            QUANJI = new JSONObject(new String(b.toByteArray(), "UTF-8"));
+        } catch (Exception e) {
+            QUANJI = null;
+        }
+    }
+
+    /** 9 维向量 → 19683 卦唯一索引 0..19682（三进制，与 trigram 一致）。 */
+    public static int idxOf(int[] g) {
+        int n = 0;
+        for (int v : g) n = n * 3 + (v + 1);
+        return n;
+    }
+
+    /** 按卦典索引取深度卦辞全文（卦名 + 总释/分层/制衡/自适配/演化）；未内嵌返回 null。 */
+    public static String getQuanji(int idx) {
+        if (QUANJI == null) return null;
+        try {
+            JSONObject g = QUANJI.getJSONObject(String.valueOf(idx));
+            StringBuilder sb = new StringBuilder();
+            sb.append("卦名：").append(g.optString("name")).append("\n");
+            sb.append("上").append(g.optString("U")).append("·中").append(g.optString("M"))
+              .append("·下").append(g.optString("B")).append("\n\n");
+            sb.append("【复合卦总释】\n").append(g.optString("zongshi")).append("\n\n");
+            sb.append("【分层拆解】\n").append(g.optString("fenceng")).append("\n\n");
+            sb.append("【跨层制衡】\n").append(g.optString("zhiheng")).append("\n\n");
+            sb.append("【全局自适配能力评估】\n").append(g.optString("zishiying")).append("\n\n");
+            sb.append("【演化路径】\n").append(g.optString("yanhua"));
+            return sb.toString();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /** 取卦名（供卡片标题）。 */
+    public static String quanjiName(int idx) {
+        if (QUANJI == null) return "";
+        try {
+            return QUANJI.getJSONObject(String.valueOf(idx)).optString("name");
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

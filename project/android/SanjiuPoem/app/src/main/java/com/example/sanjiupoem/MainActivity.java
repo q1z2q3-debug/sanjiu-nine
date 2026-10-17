@@ -174,6 +174,7 @@ public class MainActivity extends Activity {
             poems = new ArrayList<>();
             origPoems = new ArrayList<>();
         }
+        SanjiuEngine.initQuanji(this);
         refresh();
     }
 
@@ -268,6 +269,7 @@ public class MainActivity extends Activity {
         meta.setTextSize(11f);
         meta.setTextColor(GRAY);
         card.addView(meta);
+        addQuanjiBlock(card, p.gua);
         return card;
     }
 
@@ -411,6 +413,7 @@ public class MainActivity extends Activity {
         meta.setTextSize(11f);
         meta.setTextColor(GRAY);
         card.addView(meta);
+        addQuanjiBlock(card, p.gua);
         return card;
     }
 
@@ -456,6 +459,27 @@ public class MainActivity extends Activity {
             card.addView(body);
         }
         return card;
+    }
+
+    // 深度卦典块：点击展开/收起该卦的完整卦辞
+    private void addQuanjiBlock(LinearLayout card, int[] gua) {
+        int idx = SanjiuEngine.idxOf(gua);
+        final String full = SanjiuEngine.getQuanji(idx);
+        final String name = SanjiuEngine.quanjiName(idx);
+        if (full == null) return;
+        TextView q = new TextView(this);
+        q.setText("▶ 卦典 · " + name + "（点按展开）");
+        q.setTextSize(12f);
+        q.setTextColor(ACCENT);
+        q.setTypeface(q.getTypeface(), android.graphics.Typeface.BOLD);
+        q.setPadding(0, dp(8), 0, dp(4));
+        final boolean[] open = {false};
+        q.setOnClickListener(v -> {
+            open[0] = !open[0];
+            q.setText(open[0] ? ("▼ 卦典 · " + name + "\n\n" + full)
+                              : ("▶ 卦典 · " + name + "（点按展开）"));
+        });
+        card.addView(q);
     }
 
     private View space(int h) {
