@@ -43,3 +43,7 @@ sanjiu-apk-builder/
 # 大体积卦典完整版（不入 git，改用轻量版 sanjiu_quanji_light.csv / Release 发布）
 trigram/sanjiu_quanji.csv
 trigram/sanjiu_quanji.json
+
+# 全量人类卦辞（走 Release asset）
+sanjiu_quanji_human.csv
+sanjiu_quanji_human.json

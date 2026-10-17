@@ -246,4 +246,46 @@ public class SanjiuEngine {
             return "";
         }
     }
+
+    // ---------------- 人类语言卦辞（母结构 → 人类认知语言，双轨） ----------------
+    private static JSONObject HUMAN = null;
+
+    /** 加载 assets/sanjiu_quanji_human_apk.json（传统卦辞 + 通俗释义 + 生活启示）。 */
+    public static void initHuman(Context ctx) {
+        if (HUMAN != null) return;
+        try {
+            InputStream is = ctx.getAssets().open("sanjiu_quanji_human_apk.json");
+            java.io.ByteArrayOutputStream b = new java.io.ByteArrayOutputStream();
+            byte[] buf = new byte[8192];
+            int n;
+            while ((n = is.read(buf)) != -1) b.write(buf, 0, n);
+            is.close();
+            HUMAN = new JSONObject(new String(b.toByteArray(), "UTF-8"));
+        } catch (Exception e) {
+            HUMAN = null;
+        }
+    }
+
+    /** 人类卦辞全文（传统卦辞 + 通俗释义 + 生活启示）。 */
+    public static String getHuman(int idx) {
+        if (HUMAN == null) return null;
+        try {
+            JSONObject g = HUMAN.getJSONObject(String.valueOf(idx));
+            return "【传统卦辞】\n" + g.optString("guan")
+                    + "\n\n【通俗释义】\n" + g.optString("su")
+                    + "\n\n【生活启示】\n" + g.optString("qi");
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /** 人类卦名。 */
+    public static String humanMing(int idx) {
+        if (HUMAN == null) return "";
+        try {
+            return HUMAN.getJSONObject(String.valueOf(idx)).optString("ming");
+        } catch (Exception e) {
+            return "";
+        }
+    }
 }

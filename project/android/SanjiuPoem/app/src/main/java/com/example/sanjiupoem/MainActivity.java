@@ -175,6 +175,7 @@ public class MainActivity extends Activity {
             origPoems = new ArrayList<>();
         }
         SanjiuEngine.initQuanji(this);
+        SanjiuEngine.initHuman(this);
         refresh();
     }
 
@@ -270,6 +271,7 @@ public class MainActivity extends Activity {
         meta.setTextColor(GRAY);
         card.addView(meta);
         addQuanjiBlock(card, p.gua);
+        addHumanBlock(card, p.gua);
         return card;
     }
 
@@ -414,6 +416,7 @@ public class MainActivity extends Activity {
         meta.setTextColor(GRAY);
         card.addView(meta);
         addQuanjiBlock(card, p.gua);
+        addHumanBlock(card, p.gua);
         return card;
     }
 
@@ -480,6 +483,27 @@ public class MainActivity extends Activity {
                               : ("▶ 卦典 · " + name + "（点按展开）"));
         });
         card.addView(q);
+    }
+
+    // 人类语言卦辞块：母结构 → 人类认知语言（传统卦辞 + 通俗释义 + 生活启示）
+    private void addHumanBlock(LinearLayout card, int[] gua) {
+        int idx = SanjiuEngine.idxOf(gua);
+        final String full = SanjiuEngine.getHuman(idx);
+        final String ming = SanjiuEngine.humanMing(idx);
+        if (full == null) return;
+        TextView h = new TextView(this);
+        h.setText("▶ 人类卦辞 · " + ming + "（点按展开）");
+        h.setTextSize(12f);
+        h.setTextColor(GREEN);
+        h.setTypeface(h.getTypeface(), android.graphics.Typeface.BOLD);
+        h.setPadding(0, dp(4), 0, dp(4));
+        final boolean[] open = {false};
+        h.setOnClickListener(v -> {
+            open[0] = !open[0];
+            h.setText(open[0] ? ("▼ 人类卦辞 · " + ming + "\n\n" + full)
+                              : ("▶ 人类卦辞 · " + ming + "（点按展开）"));
+        });
+        card.addView(h);
     }
 
     private View space(int h) {

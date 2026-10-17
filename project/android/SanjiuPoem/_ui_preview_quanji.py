@@ -73,6 +73,15 @@ def main():
                "【跨层制衡】…　【全局自适配能力评估】…　【演化路径】…"]:
         for sub in wrap(dr, ln, f12, W - 80):
             dr.text((40, y), sub, font=f12, fill=INK); y += 20
+    y += 6
+    # 人类卦辞块（松花绿）：母结构 → 人类认知语言
+    dr.text((40, y), "▶ 人类卦辞 · 中·无咎·沉静扬卦（点按展开）", font=f12, fill=GREEN); y += 26
+    dr.line((40, y, W - 40, y), fill=(222, 214, 200)); y += 14
+    for ln in ["【传统卦辞】下卦沉观发，其基阴阳参差动静相济；…中卦守中明，其枢衡众居中审时待机；上卦敛度扬，其势…。无咎，中和守正。",
+               "【通俗释义】此卦下盘沉潜、观察、萌发，…中道固守、中正、昭明，…上势收束、权衡、外扬，…。阴阳中和，动静相济，守正无咎。",
+               "【生活启示】守中持衡，不偏不倚。"]:
+        for sub in wrap(dr, ln, f12, W - 80):
+            dr.text((40, y), sub, font=f12, fill=INK); y += 20
     im.save("/tmp/quanji_preview.png")
     print("saved /tmp/quanji_preview.png")
 
